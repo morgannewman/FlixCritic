@@ -1,3 +1,5 @@
+/* exported getRatings */
+
 var lastTitle = '';
 
 function getRatings(title, season, episode, year, callback) {

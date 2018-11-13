@@ -1,3 +1,5 @@
+/* exported fetchRatings */
+
 var RT_URL = 'https://www.rottentomatoes.com/api/private/v2.0/search/';
 var OMDB_URL = 'https://private.omdbapi.com/?';
 var OMDB_API_KEY = '1e0ce2f6';

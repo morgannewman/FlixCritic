@@ -47,7 +47,7 @@ function fetchRatings(title, season, episode, year, callback) {
         );
         delete fetchingCache[cacheKey];
         fetchRatings(title, season, episode, null, callback);
-        callback(ratings);
+        // callback(ratings);
       },
       timeout: TIMEOUT
     });
@@ -67,39 +67,6 @@ function fetchRTApiInfo(res, year) {
   if (item && item.url) ratings.url = item.url;
   if (item && item.meterScore) ratings.rating = item.meterScore + '%';
   return ratings;
-}
-
-function filterRTRating(response) {
-  const ratingsArray = response['Ratings'];
-  if (ratingsArray) {
-    const rtRating = ratingsArray.find(rtFilter);
-    if (rtRating) {
-      return rtRating['Value'];
-    }
-  }
-}
-
-function rtFilter(rating) {
-  return rating['Source'] === 'Rotten Tomatoes';
-}
-
-function requestOptions(title, season, episode, year) {
-  const options = {
-    apikey: OMDB_API_KEY
-  };
-  if (title) {
-    options['t'] = title.replace(/’/g, "'");
-  }
-  if (season) {
-    options['Season'] = season;
-  }
-  if (episode) {
-    options['Episode'] = episode;
-  }
-  if (year) {
-    options['y'] = year;
-  }
-  return options;
 }
 
 function hashKey(title, season, episode, year) {

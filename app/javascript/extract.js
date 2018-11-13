@@ -1,6 +1,8 @@
+/* exported extractEpisodeInfo extractSeasonNumber extractYear*/
+
 function extractSeasonNumber(seasonText) {
-  var regex = /(S|s)eason (\d+)/
-  var match = regex.exec(seasonText);
+  const regex = /(S|s)eason (\d+)/;
+  const match = regex.exec(seasonText);
   if (match) {
     return match[2];
   }
@@ -8,28 +10,29 @@ function extractSeasonNumber(seasonText) {
 }
 
 function extractEpisodeInfo(episodeText) {
-  var info = {};
+  const info = {};
   if (episodeText) {
-    var regex = /\D*(\d+)\D*(\d+)/
-    var match = regex.exec(episodeText);
-    info["season"] = match[1];
-    info["episode"] = match[2];
+    const regex = /\D*(\d+)\D*(\d+)/;
+    const match = regex.exec(episodeText);
+    info['season'] = match[1];
+    info['episode'] = match[2];
   }
   return info;
 }
 
 function extractYear(containerNode) {
-  yearNode = containerNode.querySelector(".year");
-  year = yearNode ? yearNode.textContent : null;
-
   // Try to guess first year of TV show (Netflix usually uses last season year)
-  durationNode = containerNode.querySelector(".duration");
+  const durationNode = containerNode.querySelector('.duration');
+  const yearNode = containerNode.querySelector('.year');
+  let year = yearNode ? yearNode.textContent : null;
+
   if (durationNode) {
-    if (match = /(\d+) Seasons?/.exec(durationNode.textContent)) {
-      log("Year was " + year);
-      log("Match is " + match[1]);
+    const match = /(\d+) Seasons?/.exec(durationNode.textContent);
+    if (match) {
+      log('Year was ' + year);
+      log('Match is ' + match[1]);
       year = year - (match[1] - 1);
-      log("Guessing " + year);
+      log('Guessing ' + year);
     }
   }
 

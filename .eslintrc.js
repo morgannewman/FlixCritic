@@ -5,7 +5,8 @@ module.exports = {
   // "env:" supplies predefined global variables
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    jquery: true
   },
   // our configuration extends the recommended base configuration
   // as well as the recommended base config for react
@@ -31,6 +32,14 @@ module.exports = {
         SwitchCase: 1
       }
     ], //enforce 2 space indents (not tabs)
+    'no-var': 'error',
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: false
+      }
+    ],
     quotes: [
       'error',
       'single',
@@ -43,7 +52,12 @@ module.exports = {
   },
   globals: {
     chrome: false,
-    rating: true,
-    log: false
+    extractEpisodeInfo: false,
+    extractSeasonNumber: false,
+    extractYear: false,
+    fetchRatings: false,
+    getRatings: false,
+    injectRatings: false,
+    log: false,
   }
 };

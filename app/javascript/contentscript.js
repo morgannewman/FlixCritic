@@ -1,20 +1,20 @@
 chrome.runtime.sendMessage({type: 'showPageAction'});
 
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
-var observerOptions = {
+const observerOptions = {
   childList: true,
   subtree: true
 };
 
-var jawBoneContentObserver = new MutationObserver(function(mutations, observer) {
-  var node = mutations.find(function(mutation) { return mutation.target.hasAttribute('observed'); });
+const jawBoneContentObserver = new MutationObserver(function(mutations, observer) {
+  let node = mutations.find(function(mutation) { return mutation.target.hasAttribute('observed'); });
   if (node) {
     node = node.target;
-    var headerNode = node.querySelector('.jawBone > h3');
+    const headerNode = node.querySelector('.jawBone > h3');
     if (headerNode) {
-      var titleNode = headerNode.querySelector('.title');
-      var title = titleNode.querySelector('img') ? titleNode.querySelector('img').alt : titleNode.textContent;
+      const titleNode = headerNode.querySelector('.title');
+      const title = titleNode.querySelector('img') ? titleNode.querySelector('img').alt : titleNode.textContent;
       if (title) {
         getRatings(title, null, null, extractYear(node), function(ratings) {
           injectRatings(node.querySelector('.meta'), ratings);
@@ -24,11 +24,11 @@ var jawBoneContentObserver = new MutationObserver(function(mutations, observer) 
   }
 });
 
-var titleCardObserver = new MutationObserver(function(mutations, observer) {
-  var node = mutations.find(function(mutation) { return mutation.target.hasAttribute('observed'); });
+const titleCardObserver = new MutationObserver(function(mutations, observer) {
+  let node = mutations.find(function(mutation) { return mutation.target.hasAttribute('observed'); });
   if (node) {
     node = node.target;
-    var titleNode = node.querySelector('.bob-title');
+    const titleNode = node.querySelector('.bob-title');
     if (titleNode && (title = titleNode.textContent)) {
       getRatings(title, null, null, extractYear(node), function(ratings) {
         injectRatings(node.querySelector('.meta') || titleNode, ratings);
@@ -58,7 +58,7 @@ function addTitleObserver(node) {
   });
 }
 
-var rowObserver = new MutationObserver(function(mutations, observer) {
+const rowObserver = new MutationObserver(function(mutations, observer) {
   mutations.forEach(function(mutation) {
     if (mutation.addedNodes) {
       mutation.addedNodes.forEach(function(node) {
@@ -70,8 +70,8 @@ var rowObserver = new MutationObserver(function(mutations, observer) {
   });
 });
 
-var mainObserver = new MutationObserver(function(mutations, observer) {
-  var mainView = document.querySelector('.mainView');
+const mainObserver = new MutationObserver(function(mutations, observer) {
+  const mainView = document.querySelector('.mainView');
   if (mainView) {
     observer.disconnect();
     rowObserver.observe(mainView, observerOptions);
@@ -81,9 +81,9 @@ var mainObserver = new MutationObserver(function(mutations, observer) {
 });
 
 function addFeaturedRatings(node) {
-  var jawBoneNode = node.querySelector('.jawBoneContainer > .jawBone');
+  const jawBoneNode = node.querySelector('.jawBoneContainer > .jawBone');
   if (jawBoneNode) {
-    var titleNode = jawBoneNode.querySelector('.title');
+    const titleNode = jawBoneNode.querySelector('.title');
     if (titleNode) {
       if (img = titleNode.querySelector('img')) {
         title = img.alt;
@@ -97,7 +97,7 @@ function addFeaturedRatings(node) {
   }
 }
 
-var playerObserver = new MutationObserver(function(mutations, observer) {
+const playerObserver = new MutationObserver(function(mutations, observer) {
   if (titleContainerNode = document.querySelector('.video-title')) {
     observer.disconnect();
     addPlayerRatings(titleContainerNode);
@@ -105,8 +105,8 @@ var playerObserver = new MutationObserver(function(mutations, observer) {
 });
 
 function addPlayerRatings(titleContainerNode) {
-  var titleNode = titleContainerNode.getElementsByTagName('h4')[0];
-  var episodeInfo = {};
+  const titleNode = titleContainerNode.getElementsByTagName('h4')[0];
+  let episodeInfo = {};
   Array.prototype.some.call(titleContainerNode.getElementsByTagName('span'), function(span) {
     if (span.classList.length === 0) {
       episodeInfo = extractEpisodeInfo(span.textContent);
@@ -118,19 +118,19 @@ function addPlayerRatings(titleContainerNode) {
   });
 }
 
-var episodeContainerObserver = new MutationObserver(function(mutations, observer) {
-  var episodeListContainer = document.querySelector('.episodes-pane');
+const episodeContainerObserver = new MutationObserver(function(mutations, observer) {
+  const episodeListContainer = document.querySelector('.episodes-pane');
   if (episodeListContainer) {
     addEpisodeRatings(episodeListContainer);
   }
 });
 
 function addEpisodeRatings(episodeListContainer) {
-  var title = document.querySelector('.video-title').getElementsByTagName('h4')[0].textContent;
-  var seasonNode = episodeListContainer.querySelector('.header-title');
-  var season = extractSeasonNumber(seasonNode.textContent);
+  const title = document.querySelector('.video-title').getElementsByTagName('h4')[0].textContent;
+  const seasonNode = episodeListContainer.querySelector('.header-title');
+  const season = extractSeasonNumber(seasonNode.textContent);
   if (season) {
-    var episodes = episodeListContainer.querySelectorAll('.episode-row > div > span.number');
+    const episodes = episodeListContainer.querySelectorAll('.episode-row > div > span.number');
     episodes.forEach(function(episode) {
       if (title) {
         getRatings(title, season, episode.textContent, null, function(ratings) {

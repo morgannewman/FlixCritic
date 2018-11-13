@@ -31,6 +31,14 @@ module.exports = {
         SwitchCase: 1
       }
     ], //enforce 2 space indents (not tabs)
+    'no-var': 'error',
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: false
+      }
+    ],
     quotes: [
       'error',
       'single',
@@ -46,6 +54,6 @@ module.exports = {
     rating: true,
     log: false,
     getRatings: false,
-    fetchRatings: false,
+    fetchRatings: false
   }
 };

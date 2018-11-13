@@ -1,8 +1,8 @@
 /* exported extractEpisodeInfo extractSeasonNumber extractYear*/
 
 function extractSeasonNumber(seasonText) {
-  var regex = /(S|s)eason (\d+)/;
-  var match = regex.exec(seasonText);
+  const regex = /(S|s)eason (\d+)/;
+  const match = regex.exec(seasonText);
   if (match) {
     return match[2];
   }
@@ -10,10 +10,10 @@ function extractSeasonNumber(seasonText) {
 }
 
 function extractEpisodeInfo(episodeText) {
-  var info = {};
+  const info = {};
   if (episodeText) {
-    var regex = /\D*(\d+)\D*(\d+)/;
-    var match = regex.exec(episodeText);
+    const regex = /\D*(\d+)\D*(\d+)/;
+    const match = regex.exec(episodeText);
     info['season'] = match[1];
     info['episode'] = match[2];
   }

@@ -1,16 +1,16 @@
 /* exported fetchRatings */
 
-var RT_URL = 'https://www.rottentomatoes.com/api/private/v2.0/search/';
-var OMDB_URL = 'https://private.omdbapi.com/?';
-var OMDB_API_KEY = '1e0ce2f6';
-var TIMEOUT = 3000;
+const RT_URL = 'https://www.rottentomatoes.com/api/private/v2.0/search/';
+const OMDB_URL = 'https://private.omdbapi.com/?';
+const OMDB_API_KEY = '1e0ce2f6';
+const TIMEOUT = 3000;
 
-var fetchedCache = {};
-var fetchingCache = {};
+const fetchedCache = {};
+const fetchingCache = {};
 
 function fetchRatings(title, season, episode, year, callback) {
-  var argsString = Array.from(arguments).slice(0, 4).join(', ');
-  var cacheKey = hashKey(title, season, episode, year);
+  const argsString = Array.from(arguments).slice(0, 4).join(', ');
+  const cacheKey = hashKey(title, season, episode, year);
   if (fetchedCache[cacheKey]) {
     log('Cached ratings for ' + argsString);
     callback(fetchedCache[cacheKey]);
@@ -27,7 +27,7 @@ function fetchRatings(title, season, episode, year, callback) {
           delete fetchingCache[cacheKey];
           return fetchRatings(title, season, episode, null, callback);
         }
-        var ratings = {
+        const ratings = {
           imdb: response.imdbRating,
           imdbID: response.imdbID,
           rt: filterRTRating(response),
@@ -45,7 +45,7 @@ function fetchRatings(title, season, episode, year, callback) {
             q: response.Title
           },
           success: function(RTResponse) {
-            var rtInfo = fetchRTApiInfo(RTResponse, response);
+            const rtInfo = fetchRTApiInfo(RTResponse, response);
             log('Fetched RT ratings for ' + argsString + ': ' + JSON.stringify(rtInfo));
             if (rtInfo.rating) ratings.rt = rtInfo.rating;
             if (rtInfo.url) ratings.rtUrl = rtInfo.url;
@@ -73,10 +73,10 @@ function fetchRatings(title, season, episode, year, callback) {
 }
 
 function fetchRTApiInfo(RTResponse, IMDBResponse) {
-  var type = IMDBResponse.Type;
-  var year = IMDBResponse.Year ? IMDBResponse.Year.slice(0,4) : 0;
-  var rtInfo = {};
-  var item;
+  const type = IMDBResponse.Type;
+  const year = IMDBResponse.Year ? IMDBResponse.Year.slice(0,4) : 0;
+  const rtInfo = {};
+  let item;
   switch(type) {
     case 'movie':
       item = RTResponse.movies.find(function(movie) { 
@@ -98,9 +98,9 @@ function fetchRTApiInfo(RTResponse, IMDBResponse) {
 }
 
 function filterRTRating(response) {
-  var ratingsArray = response['Ratings'];
+  const ratingsArray = response['Ratings'];
   if (ratingsArray) {
-    var rtRating = ratingsArray.find(rtFilter);
+    const rtRating = ratingsArray.find(rtFilter);
     if (rtRating) {
       return rtRating['Value'];
     }
@@ -112,7 +112,7 @@ function rtFilter(rating) {
 }
 
 function requestOptions(title, season, episode, year) {
-  var options = {
+  const options = {
     'apikey': OMDB_API_KEY
   };
   if (title) {
@@ -140,11 +140,11 @@ Array.prototype.find = Array.prototype.find || function(callback) {
   } else if (typeof callback !== 'function') {
     throw new TypeError('callback must be a function');
   }
-  var list = Object(this);
-  var length = list.length >>> 0;
-  var thisArg = arguments[1];
-  for (var i = 0; i < length; i++) {
-    var element = list[i];
+  const list = Object(this);
+  const length = list.length >>> 0;
+  const thisArg = arguments[1];
+  for (let i = 0; i < length; i++) {
+    const element = list[i];
     if ( callback.call(thisArg, element, i, list) ) {
       return element;
     }

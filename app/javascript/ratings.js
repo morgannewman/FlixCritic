@@ -1,6 +1,6 @@
 /* exported getRatings */
 
-var lastTitle = '';
+let lastTitle = '';
 
 function getRatings(title, season, episode, year, callback) {
   if (title.length && !lastTitle || lastTitle === title || !title.endsWith(lastTitle)) {

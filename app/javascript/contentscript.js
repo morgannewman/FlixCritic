@@ -1,7 +1,5 @@
 chrome.runtime.sendMessage({type: 'showPageAction'});
 
-const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
 const observerOptions = {
   childList: true,
   subtree: true
@@ -25,11 +23,17 @@ const jawBoneContentObserver = new MutationObserver(function(mutations, observer
 });
 
 const titleCardObserver = new MutationObserver(function(mutations, observer) {
-  let node = mutations.find(function(mutation) { return mutation.target.hasAttribute('observed'); });
+  let node = mutations.find(function(mutation) {
+    return mutation.target.hasAttribute('observed'); 
+  });
+  let title;
+  
   if (node) {
     node = node.target;
     const titleNode = node.querySelector('.bob-title');
-    const title = titleNode.textContent;
+    if (titleNode) {
+      title = title = titleNode.textContent;
+    }
     if (titleNode && title) {
       getRatings(title, null, null, extractYear(node), function(ratings) {
         injectRatings(node.querySelector('.meta') || titleNode, ratings);
@@ -83,12 +87,12 @@ const mainObserver = new MutationObserver(function(mutations, observer) {
 
 function addFeaturedRatings(node) {
   const jawBoneNode = node.querySelector('.jawBoneContainer > .jawBone');
-  const titleNode = jawBoneNode.querySelector('.title');
-  const img = titleNode.querySelector('img');
   let title;
-
+  
   if (jawBoneNode) {
+    const titleNode = jawBoneNode.querySelector('.title');
     if (titleNode) {
+      const img = titleNode.querySelector('img');
       if (img) {
         title = img.alt;
       } else {
@@ -145,9 +149,8 @@ function addEpisodeRatings(episodeListContainer) {
     });
   }
 }
-
 const mainView = document.querySelector('.mainView');
-const titleContainerNode = document.querySelector('.video-title');
+const titleContainerNode  = document.querySelector('.video-title');
 
 if (mainView) {
   rowObserver.observe(mainView, observerOptions);

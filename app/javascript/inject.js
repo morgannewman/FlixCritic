@@ -1,3 +1,5 @@
+/* exported injectRatings */
+
 function imdbSpan() {
   const span = document.createElement('SPAN');
   span.className = 'imdbRating';
@@ -97,7 +99,7 @@ function metacriticRatingNode(rating) {
 }
 
 function should_append_imdb(rating, id) {
-  if ((rating && rating != 'N/A') || id) {
+  if ((rating && rating !== 'N/A') || id) {
     return true;
   }
   return false;
@@ -132,7 +134,7 @@ function injectRatings(node, ratings) {
         }
       }
     }
-    if (metascore && metascore != 'N/A' && !node.querySelector('.metacriticRating')) {
+    if (metascore && metascore !== 'N/A' && !node.querySelector('.metacriticRating')) {
       node.appendChild(metacriticLogoNode());
       node.appendChild(metacriticRatingNode(metascore));
     }

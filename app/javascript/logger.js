@@ -1,6 +1,6 @@
 /* exported log */
 
-const LOG = false;
+const LOG = true;
 
 function log(message) {
   if (LOG) {

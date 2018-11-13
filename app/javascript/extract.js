@@ -21,13 +21,15 @@ function extractEpisodeInfo(episodeText) {
 }
 
 function extractYear(containerNode) {
-  yearNode = containerNode.querySelector('.year');
-  year = yearNode ? yearNode.textContent : null;
+  const regex = /(\d+) Seasons?/;
+  const match = regex.exec(durationNode.textContent);
+  const yearNode = containerNode.querySelector('.year');
+  let year = yearNode ? yearNode.textContent : null;
 
   // Try to guess first year of TV show (Netflix usually uses last season year)
-  durationNode = containerNode.querySelector('.duration');
+  const durationNode = containerNode.querySelector('.duration');
   if (durationNode) {
-    if (match = /(\d+) Seasons?/.exec(durationNode.textContent)) {
+    if (match) {
       log('Year was ' + year);
       log('Match is ' + match[1]);
       year = year - (match[1] - 1);

@@ -51,9 +51,10 @@ module.exports = {
   },
   globals: {
     chrome: false,
-    rating: true,
     log: false,
     getRatings: false,
-    fetchRatings: false
+    fetchRatings: false,
+    extractYear: false,
+    injectRatings: false
   }
 };

@@ -44,6 +44,8 @@ module.exports = {
   globals: {
     chrome: false,
     rating: true,
-    log: false
+    log: false,
+    getRatings: false,
+    fetchRatings: false,
   }
 };

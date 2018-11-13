@@ -5,7 +5,8 @@ module.exports = {
   // "env:" supplies predefined global variables
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    jquery: true
   },
   // our configuration extends the recommended base configuration
   // as well as the recommended base config for react
@@ -51,10 +52,12 @@ module.exports = {
   },
   globals: {
     chrome: false,
-    log: false,
-    getRatings: false,
-    fetchRatings: false,
+    extractEpisodeInfo: false,
+    extractSeasonNumber: false,
     extractYear: false,
-    injectRatings: false
+    fetchRatings: false,
+    getRatings: false,
+    injectRatings: false,
+    log: false,
   }
 };
